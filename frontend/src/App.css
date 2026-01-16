@@ -1,0 +1,283 @@
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  color: #666;
+}
+
+.error {
+  background-color: #fee;
+  border: 1px solid #fcc;
+  color: #c00;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  white-space: pre-line;  /* Preserve newlines in error messages */
+}
+
+/* Drop Zone Styles */
+.drop-zone {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 3rem;
+  text-align: center;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.drop-zone.dragging {
+  border-color: #4a90d9;
+  background-color: #e8f4ff;
+}
+
+.drop-zone.loading {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.drop-zone p {
+  margin: 0.5rem 0;
+  color: #666;
+}
+
+.file-input-label {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #4a90d9;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.2s;
+}
+
+.file-input-label:hover {
+  background-color: #357abd;
+}
+
+/* Template Info */
+.template-info {
+  background-color: #e8f5e9;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.template-info p {
+  margin: 0;
+  color: #2e7d32;
+}
+
+.reset-btn {
+  padding: 0.5rem 1rem;
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background-color: #555;
+}
+
+/* Dynamic Form Styles */
+.dynamic-form {
+  text-align: left;
+}
+
+.dynamic-form h2 {
+  color: #333;
+  border-bottom: 2px solid #4a90d9;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-section {
+  margin-bottom: 2rem;
+}
+
+.form-section h3 {
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #444;
+  font-weight: 500;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: #4a90d9;
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.2);
+}
+
+/* Loop Section Styles */
+.loop-section {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.loop-item {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+}
+
+.loop-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.loop-item-header span {
+  font-weight: 500;
+  color: #666;
+}
+
+.remove-btn {
+  padding: 0.25rem 0.75rem;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.remove-btn:hover {
+  background-color: #c82333;
+}
+
+.add-btn {
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.add-btn:hover {
+  background-color: #218838;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #4a90d9;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #357abd;
+}
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Empty Form State */
+.empty-form {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 8px;
+}
+
+.empty-form h2 {
+  color: #f57c00;
+  margin-bottom: 1rem;
+}
+
+.empty-form p {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.empty-form ul {
+  text-align: left;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.empty-form code {
+  background-color: #f5f5f5;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* Checkbox Field Styles */
+.checkbox-field {
+  margin-bottom: 0.75rem;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  color: #444;
+}

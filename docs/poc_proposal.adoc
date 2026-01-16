@@ -1,0 +1,260 @@
+= Dynamic Word Template Filler
+:author: Technical Team
+:revdate: 2026-01-15
+:revnumber: 1.0
+:toc: macro
+:toclevels: 2
+:icons: font
+:source-highlighter: rouge
+:pdf-theme: default
+:pdf-fontsdir: /usr/share/fonts
+:imagesdir: .
+
+== Executive Summary
+
+A web-based application that enables users to upload Word document templates using simple placeholder syntax and dynamically generate filled documents through an intuitive form interface.
+
+This Proof of Concept demonstrates a streamlined approach to document generation that eliminates the technical barriers typically associated with template-based systems, making it accessible to business users without programming knowledge.
+
+== Business Need
+
+Organizations frequently need to generate customized Word documents from templates including:
+
+* **Contracts** - Client agreements with variable terms and conditions
+* **Invoices** - Billing documents with line items and calculations
+* **Reports** - Standardized reports with dynamic data sections
+* **Letters** - Correspondence with personalized content
+
+Current solutions require technical knowledge of complex templating systems such as Jinja2, Mustache, or mail merge configurations. This POC demonstrates a user-friendly approach using intuitive placeholder syntax that business users can create and maintain independently.
+
+== Template Syntax Support
+
+The application supports three primary placeholder types that cover most document generation requirements:
+
+[cols="1,2,2",options="header"]
+|===
+|Syntax |Purpose |Example
+
+|`{field}`
+|Simple text placeholder
+|`{name}`, `{email}`, `{company}`
+
+|`{#section}...{/section}`
+|Conditional content blocks
+|`{#disclaimer}Legal disclaimer text here{/disclaimer}`
+
+|`{#list}...{/list}`
+|Repeatable sections for collections
+|`{#products}{name} - ${price}{/products}`
+|===
+
+== System Architecture
+
+The application follows a clean three-tier architecture with clear separation of concerns:
+
+[plantuml,architecture,svg]
+----
+@startuml
+!theme plain
+skinparam backgroundColor transparent
+skinparam componentStyle rectangle
+skinparam defaultFontSize 12
+
+rectangle "**React Frontend**" as frontend #E3F2FD {
+}
+
+rectangle "**FastAPI Backend**" as backend #FFF3E0 {
+}
+
+rectangle "**docxtpl Engine**" as engine #E8F5E9 {
+}
+
+frontend -right-> backend : REST API
+backend -right-> engine : Template\nProcessing
+
+note bottom of frontend
+  Dynamic Form
+  Generation
+end note
+
+note bottom of backend
+  Template Parser &
+  Validator
+end note
+
+note bottom of engine
+  Document
+  Generation
+end note
+
+@enduml
+----
+
+**Data Flow:**
+
+1. User uploads a `.docx` template via the React frontend
+2. Backend parses the template and extracts all placeholder definitions
+3. Frontend dynamically generates appropriate form controls
+4. User fills in the form data and submits
+5. Backend processes the template with user data via docxtpl
+6. Generated document is returned for download
+
+== User Interface Wireframe
+
+[plantuml,wireframe,svg]
+----
+@startsalt
+{
+  {+
+    <b>DocxTpl Template Filler</b>
+  }
+  {+
+    == Template Upload
+    {
+      [                                                      ]
+      [     Drag & Drop your .docx template here            ]
+      [               or click to browse                     ]
+      [                                                      ]
+    }
+    [Upload Template]
+  }
+  {+
+    == Simple Fields
+    {
+      Name:     | "John Smith              "
+      Email:    | "john@example.com        "
+      Company:  | "Acme Corporation        "
+    }
+  }
+  {+
+    == Optional Sections
+    {
+      [X] Include Disclaimer
+      [ ] Include Terms & Conditions
+      [X] Include Signature Block
+    }
+  }
+  {+
+    == Products (Repeatable)
+    {#
+      Product Name          | Price
+      "Widget Pro          "| "$99.99 "  | [Remove]
+      "Service Package     "| "$249.00"  | [Remove]
+    }
+    [+ Add Product]
+  }
+  {+
+    [<b>Generate Document</b>]
+  }
+}
+@endsalt
+----
+
+The interface provides distinct sections for each placeholder type:
+
+* **Simple Fields** - Standard text inputs for basic placeholders
+* **Optional Sections** - Checkboxes for conditional content blocks
+* **Repeatable Sections** - Dynamic forms with add/remove capabilities
+
+== Key Features
+
+[cols="1,3",options="header"]
+|===
+|Feature |Description
+
+|**Drag & Drop Upload**
+|Simple template upload with file type validation and size limits
+
+|**Auto-Detection**
+|Automatically extracts fields, conditionals, and lists from uploaded templates
+
+|**Dynamic Forms**
+|Generates appropriate input controls based on detected field types
+
+|**Repeatable Sections**
+|Add/remove items for list-type content with intuitive controls
+
+|**Conditional Sections**
+|Toggle optional content via checkboxes for cleaner document output
+
+|**Instant Generation**
+|Download filled document immediately after form submission
+|===
+
+== Technical Stack
+
+[cols="1,2",options="header"]
+|===
+|Component |Technology
+
+|Frontend
+|React + TypeScript + Vite
+
+|Backend
+|Python + FastAPI
+
+|Template Engine
+|python-docx-template (docxtpl)
+
+|Document Format
+|OOXML (.docx)
+|===
+
+**Technology Rationale:**
+
+* **React + TypeScript** - Type safety and component reusability for dynamic form generation
+* **FastAPI** - High-performance async Python framework with automatic API documentation
+* **docxtpl** - Mature Jinja2-based Word templating with excellent format preservation
+
+== Success Criteria
+
+The POC will be considered successful when it demonstrates the following capabilities:
+
+[%interactive]
+* [ ] Parse templates containing `{field}`, `{#conditional}`, and `{#list}` syntax
+* [ ] Generate dynamic form UI components from parsed template metadata
+* [ ] Support add/remove functionality for repeatable list sections
+* [ ] Generate filled documents while preserving original formatting and styles
+* [ ] Handle empty and optional fields gracefully without document errors
+* [ ] Provide clear error messages for invalid template syntax
+* [ ] Complete document generation in under 5 seconds for typical templates
+
+== Timeline Estimate
+
+[cols="2,1",options="header"]
+|===
+|Phase |Duration
+
+|Backend Parser & Generator
+|2 days
+
+|Frontend Dynamic Form
+|2 days
+
+|Integration & Testing
+|1 day
+
+|*Total*
+|*5 days*
+|===
+
+**Phase Details:**
+
+* **Backend Parser & Generator** - Template parsing logic, field extraction, document generation endpoint
+* **Frontend Dynamic Form** - Dynamic component rendering, form state management, file upload handling
+* **Integration & Testing** - End-to-end testing, error handling, edge case validation
+
+== Next Steps
+
+Upon POC approval, the following actions will initiate the development:
+
+1. Set up development environment and project repositories
+2. Create sample templates for testing various placeholder types
+3. Implement backend template parsing and validation
+4. Build frontend dynamic form generation system
+5. Integrate components and perform comprehensive testing
+6. Document API endpoints and user guide
+
+---
+
+_Document generated: {revdate} | Version: {revnumber}_

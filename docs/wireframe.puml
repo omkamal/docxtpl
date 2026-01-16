@@ -1,0 +1,48 @@
+@startsalt
+{
+  {^"DocxTpl Template Filler"}
+  ==
+  {+
+    {* Upload Template | <&cloud-upload> }
+    --
+    [     Drop .docx file here or click to browse     ]
+  }
+  ==
+  {^"Template Fields Detected"}
+  --
+  {+
+    {^"Simple Fields"}
+    {
+      Name: | "John Doe          "
+      Email: | "john@example.com  "
+      Company: | "Acme Corp        "
+    }
+  }
+  --
+  {+
+    {^"Optional Sections"}
+    {
+      [X] Include Disclaimer
+      [ ] Include Terms and Conditions
+    }
+  }
+  --
+  {+
+    {^"Products (Repeatable)"}
+    {#
+      Item 1
+      Product Name: | "Widget A    "
+      Price: | "$10.00      "
+      [Remove]
+      --
+      Item 2
+      Product Name: | "Widget B    "
+      Price: | "$25.00      "
+      [Remove]
+    }
+    [ + Add Product ]
+  }
+  ==
+  [         Generate Document         ]
+}
+@endsalt
